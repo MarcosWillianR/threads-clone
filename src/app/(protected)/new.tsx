@@ -6,7 +6,6 @@ import {
   Text,
   TextInput,
   View,
-  Keyboard,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
