@@ -7,12 +7,33 @@ import {
   TouchableOpacity,
   Pressable,
   ScrollView,
+  Alert,
 } from "react-native";
+import { supabase } from "@/lib/supabase";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const signupWithEmail = async () => {
+    if (!email || !password) {
+      Alert.alert("Please enter an email and password");
+      return;
+    }
+    setIsLoading(true);
+
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.signUp({ email, password });
+
+    if (error) Alert.alert(error.message);
+    if (!session)
+      Alert.alert("Please check your inbox for email verification!");
+
+    setIsLoading(false);
+  };
 
   return (
     <ScrollView
@@ -56,6 +77,7 @@ export default function Signup() {
 
           <TouchableOpacity
             className="w-full bg-white py-3 rounded-lg mt-6"
+            onPress={signupWithEmail}
             activeOpacity={0.8}
           >
             <Text className="text-black text-center font-semibold">
