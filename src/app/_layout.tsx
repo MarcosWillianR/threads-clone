@@ -1,9 +1,13 @@
 import "../../global.css";
 
+import relativeTime from "dayjs/plugin/relativeTime";
 import { Slot } from "expo-router";
+import dayjs from "dayjs";
 
 import { ThemeProvider, DarkTheme } from "@react-navigation/native";
 import { AuthProvider } from "@/providers/AuthProvider";
+
+dayjs.extend(relativeTime);
 
 const myTheme = {
   ...DarkTheme,

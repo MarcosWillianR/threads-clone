@@ -1,5 +1,7 @@
+import { useTheme } from "@react-navigation/native";
+import { ActivityIndicator, View } from "react-native";
+import { User } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
-import { User } from "@/types";
 import {
   createContext,
   PropsWithChildren,
@@ -19,8 +21,11 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 function AuthProvider({ children }: PropsWithChildren) {
+  const { colors } = useTheme();
+
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -28,6 +33,7 @@ function AuthProvider({ children }: PropsWithChildren) {
         setUser(session.user);
         setIsAuthenticated(true);
       }
+      setIsLoading(false);
     });
 
     const {
@@ -46,6 +52,17 @@ function AuthProvider({ children }: PropsWithChildren) {
       subscription.unsubscribe();
     };
   }, []);
+
+  if (isLoading) {
+    return (
+      <View
+        className="flex-1 justify-center items-center"
+        style={{ backgroundColor: colors.background }}
+      >
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <AuthContext.Provider value={{ user, isAuthenticated }}>

@@ -1,9 +1,5 @@
 import { Tabs } from "expo-router";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { Feather } from "@expo/vector-icons";
-import dayjs from "dayjs";
-
-dayjs.extend(relativeTime);
 
 export default function TabsLayout() {
   return (
