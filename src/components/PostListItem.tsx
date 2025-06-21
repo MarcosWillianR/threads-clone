@@ -13,7 +13,7 @@ export function PostListItem({ data }: PostListItemProps) {
     <View className="flex-row p-4 border-b border-gray-800/70">
       <View className="mr-3">
         <Image
-          source={{ uri: data.user.image }}
+          source={{ uri: data.user.avatar_url }}
           className="w-12 h-12 rounded-full"
         />
       </View>
@@ -24,7 +24,7 @@ export function PostListItem({ data }: PostListItemProps) {
             {data.user.username}
           </Text>
           <Text className="text-gray-500">
-            {dayjs(data.createdAt).fromNow()}
+            {dayjs(data.created_at).fromNow()}
           </Text>
         </View>
 
@@ -38,7 +38,7 @@ export function PostListItem({ data }: PostListItemProps) {
 
           <Pressable className="flex-row items-center">
             <Ionicons name="chatbubble-outline" size={16} color="#d1d5db" />
-            <Text className="text-gray-300 ml-2">{data.replies.length}</Text>
+            <Text className="text-gray-300 ml-2">{0}</Text>
           </Pressable>
 
           <Pressable className="flex-row items-center">
